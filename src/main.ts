@@ -76,7 +76,7 @@ app.innerHTML = `
           <form id="expense-form" novalidate>
             <label for="description">Descrição<input id="description" name="description" type="text" placeholder="Ex: supermercado" autocomplete="off" required /></label>
             <label for="amount">Valor<input id="amount" name="amount" type="number" min="0.01" step="0.01" placeholder="0,00" required /></label>
-            <label for="category">Categoria<input id="category" name="category" type="text" placeholder="Ex: alimentação" autocomplete="off" required /></label>
+            <label for="category">Categoria (opcional)<input id="category" name="category" type="text" placeholder="Ex: alimentação" autocomplete="off" /></label>
             <label for="expense-month">Mês e ano<input id="expense-month" name="month" type="month" required /></label>
             <p id="form-error" class="form-error" role="alert"></p>
             <button class="primary-button" type="submit"><span>Adicionar despesa</span><b>+</b></button>
@@ -116,11 +116,11 @@ form.addEventListener('submit', (event) => {
   event.preventDefault();
   const data = new FormData(form);
   const descricao = String(data.get('description') ?? '').trim();
-  const categoria = String(data.get('category') ?? '').trim();
+  const categoria = String(data.get('category') ?? '').trim() || 'Sem categoria';
   const mesAno = String(data.get('month') ?? '');
   const valor = Number(data.get('amount'));
 
-  if (!descricao || !categoria || !mesAno || !Number.isFinite(valor) || valor <= 0) {
+  if (!descricao || !mesAno || !Number.isFinite(valor) || valor <= 0) {
     error.textContent = 'Preencha todos os campos com valores válidos.';
     return;
   }
