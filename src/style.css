@@ -20,6 +20,8 @@ footer { border-top: 1px solid var(--line); display: flex; justify-content: spac
 .expenses-panel .eyebrow, .sidebar .eyebrow { font-size: 17px; }
 .expenses-panel .section-header h2, .sidebar .form-header h2 { font-size: 28px; }
 .expenses-panel .expense-info strong, .expenses-panel .expense-info span, .sidebar label, .sidebar input, .sidebar .primary-button, .sidebar .category-row, .sidebar .category-row strong, .sidebar .clear-button { font-size: 17px; }
+.metric-heading span { font-size: 17px; }
+.metric-foot { font-size: 17px; }
 .budget-label { display: block; margin-top: 12px; color: #43552e; font: 11px 'DM Mono', monospace; text-transform: uppercase; }
 .budget-input { width: 100%; margin-top: 4px; padding: 5px 0; border: 0; border-bottom: 1px solid #71844a; outline: 0; background: transparent; color: #17231b; font-size: 15px; }
 .budget-input::placeholder { color: #60713d; }

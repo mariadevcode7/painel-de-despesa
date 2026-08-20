@@ -11,8 +11,8 @@ const app = document.querySelector<HTMLDivElement>('#app');
 if (!app) throw new Error('Elemento principal da aplicação não encontrado.');
 
 let despesas = loadExpenses();
-let filtroMes = '';
 const currentMonth = new Date().toISOString().slice(0, 7);
+let filtroMes = currentMonth;
 let orcamentoMensal = loadMonthlyBudget(currentMonth);
 let nomeUsuario = formatUserName(loadUserName());
 if (!nomeUsuario) nomeUsuario = requestUserName();
@@ -97,6 +97,7 @@ const error = document.querySelector<HTMLParagraphElement>('#form-error')!;
 const monthlyBudgetInput = document.querySelector<HTMLInputElement>('#monthly-budget')!;
 
 monthInput.value = currentMonth;
+filterInput.value = currentMonth;
 if (orcamentoMensal !== null) monthlyBudgetInput.value = String(orcamentoMensal);
 document.querySelector<HTMLSpanElement>('#today-label')!.textContent = monthFormatter.format(new Date());
 document.querySelector<HTMLSpanElement>('#month-label')!.textContent = monthFormatter.format(new Date());
@@ -115,8 +116,8 @@ monthlyBudgetInput.addEventListener('change', () => {
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   const data = new FormData(form);
-  const descricao = String(data.get('description') ?? '').trim();
-  const categoria = String(data.get('category') ?? '').trim() || 'Sem categoria';
+  const descricao = capitalizeFirstLetter(String(data.get('description') ?? '').trim());
+  const categoria = capitalizeFirstLetter(String(data.get('category') ?? '').trim() || 'Sem categoria');
   const mesAno = String(data.get('month') ?? '');
   const valor = Number(data.get('amount'));
 
@@ -195,6 +196,10 @@ function formatUserName(nome: string) {
     .filter(Boolean)
     .map((parte) => parte.charAt(0).toLocaleUpperCase('pt-BR') + parte.slice(1))
     .join(' ');
+}
+
+function capitalizeFirstLetter(texto: string) {
+  return texto ? texto.charAt(0).toLocaleUpperCase('pt-BR') + texto.slice(1) : texto;
 }
 
 function getInitials(nome: string) {
